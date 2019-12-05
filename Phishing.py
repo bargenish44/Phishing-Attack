@@ -37,14 +37,14 @@ if len(sys.argv)==5:
 		n=soup.find('name')
 		b=soup.find('body')
 		c=soup.find('content')
-		if t != 'none':
+		if t:
 			job_title=t
-		if n != 'none':
-			email=n
-		if b != 'none':
-			body=str(b)
-		if c != 'none':
-			body=str(c)
+		if n:
+			email=n.text
+		if b:
+			body=b.text
+		if c:
+			body=c.text
 		send_mail()
 		
 	elif "title" in benignMail or "Title" in benignMail:	#its a string
